@@ -73,7 +73,10 @@ function PlaceOrder() {
         e.preventDefault()
         try {
             
-            let orderItems = []
+            if (!token) {
+                return navigate('/login')
+            } else {
+                let orderItems = []
 
             for(const items in cartItems){
                 for(const item in cartItems[items]){
@@ -129,8 +132,9 @@ function PlaceOrder() {
                         initPay(responseRazorpay.data.order)
                         
                     }
-
-
+                    else {
+                        toast.error(responseRazorpay.data.message)
+                    }
 
                     break;
                 
@@ -138,6 +142,7 @@ function PlaceOrder() {
                 default:
                     break;
                     
+            }
             }
             
 
